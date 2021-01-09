@@ -1,0 +1,33 @@
+#burp python script to remove the alpha characters from a token in an html response
+import re
+
+if not messageIsRequest:
+    response = messageInfo.getResponse()
+    responseStr = helpers.bytesToString(response)
+    responseParsed = helpers.analyzeResponse(response)
+    body = responseStr[responseParsed.getBodyOffset():]
+    headers = responseParsed.getHeaders()
+
+    #print(body)
+
+    newBody = ""
+    brLoc = body.index("</br>")
+    newBody = body[0:brLoc + 5]
+    body = body[brLoc + 5:]
+ 
+    # remove alpha chars from token string between the br tags
+    brLoc = body.index("<br>")
+    tokenString = body[0:brLoc]
+    tokenString = re.sub("\D", "", tokenString)
+    newBody = newBody + tokenString
+
+    # add the rest of the body onto the end
+    body = body[brLoc:]
+    newBody = newBody + body
+
+    #print(newBody)
+    #print("----")
+    #print(tokenString)
+
+    new_response = helpers.buildHttpMessage(headers, helpers.stringToBytes(newBody))
+    messageInfo.setResponse(new_response)
