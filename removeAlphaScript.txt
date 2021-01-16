@@ -1,4 +1,6 @@
 #burp python script to remove the alpha characters from a token in an html response
+#very generic - used to assist with a CTF challenge where the token was the only thing on the page between <br> tags
+#but could easily be adapted for more complex find and replace operations
 import re
 
 if not messageIsRequest:
