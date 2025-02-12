@@ -1,5 +1,5 @@
 #!/bin/sh
-#usage: sqliteDb_SearchForString.sh "text to search for" database.db
+#usage: sqliteDb_SearchForString.sh "text to search for" listOfDatabaseFiles.txt
 
 searchFor="$1"
 dbListFilename="$2"
